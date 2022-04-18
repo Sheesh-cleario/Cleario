@@ -1,13 +1,23 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 namespace API
 {
 	public class Startup
 	{
+		private readonly IConfiguration _configuration;
+
+		public Startup(IConfiguration configuration)
+		{
+			_configuration = configuration;
+		}
+
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddCors();
-			 
+
+			services.AddDbContext<CleaningContext>(x => x.UseSqlite(_configuration.GetConnectionString("DefaultConnection")));
 			services.AddControllers();
 			services.AddSwaggerGen(c =>
 			{
