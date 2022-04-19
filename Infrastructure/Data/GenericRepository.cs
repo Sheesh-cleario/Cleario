@@ -56,5 +56,11 @@ namespace Infrastructure.Data
 		{
 			return await _context.Set<T>().CountAsync();
 		}
+
+		public async Task AddEntityAsync(T entity)
+		{
+			var result = await _context.Set<T>().AddAsync(entity);
+			_context.SaveChanges();
+		}
 	}
 }

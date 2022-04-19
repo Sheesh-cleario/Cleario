@@ -30,7 +30,7 @@ namespace API.Controllers
 		{
 			var user = await _customerRepos.GetByIdAsync(1);
 			if (user == null)
-				return BadRequest();
+				return NotFound();
 			return user;
 		}
 

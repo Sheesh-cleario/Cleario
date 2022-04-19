@@ -2,7 +2,10 @@
 using API.Middleware;
 using Core.Interfaces;
 using Infrastructure.Data;
+using Infrastructure.Services;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.OpenApi.Models;
 
 namespace API
@@ -19,6 +22,7 @@ namespace API
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddAutoMapper(typeof(MappingProfiles));
+			services.AddSingleton<IOrderPriceService, OrderPriceService>();
 			services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
 			services.AddCors();
@@ -42,8 +46,16 @@ namespace API
 			}
 
 			app.UseHttpsRedirection();
-
+			
 			app.UseRouting();
+			app.UseStaticFiles();
+			app.UseStaticFiles(new StaticFileOptions
+			{
+				FileProvider = new PhysicalFileProvider(
+					Path.Combine(Directory.GetCurrentDirectory(), "FileStorage")
+				),
+				RequestPath = "/MessageFiles"
+			});
 
 			app.UseCors(builder => builder.AllowAnyOrigin());
 

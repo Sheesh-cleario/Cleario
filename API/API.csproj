@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <Folder Include="Extentions\" />
+    <Folder Include="FileStorage\MessageFiles\" />
   </ItemGroup>
 
   <ItemGroup>
