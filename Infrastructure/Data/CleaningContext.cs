@@ -13,7 +13,6 @@ namespace Infrastructure.Data
 	{
 		public CleaningContext(DbContextOptions<CleaningContext> options): base(options)
 		{
-
 		}
 
 
@@ -23,7 +22,7 @@ namespace Infrastructure.Data
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
-			modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+			//modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 		}
 	}
 }

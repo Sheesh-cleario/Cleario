@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Core.Entities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -7,5 +8,15 @@ namespace API.Controllers
 	[ApiController]
 	public class OrderController : ControllerBase
 	{
+		public OrderController()
+		{
+
+		}
+
+		//[HttpGet("price")]
+		//public Task<int> GetOrderPrice([FromBody] OrderObjectDetails orderDetails)
+		//{
+
+		//}
 	}
 }

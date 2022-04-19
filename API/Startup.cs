@@ -1,4 +1,7 @@
-﻿using Infrastructure.Data;
+﻿using API.Helpers;
+using API.Middleware;
+using Core.Interfaces;
+using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
@@ -15,18 +18,23 @@ namespace API
 
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddAutoMapper(typeof(MappingProfiles));
+			services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
 			services.AddCors();
 
 			services.AddDbContext<CleaningContext>(x => x.UseSqlite(_configuration.GetConnectionString("DefaultConnection")));
 			services.AddControllers();
 			services.AddSwaggerGen(c =>
 			{
-				c.SwaggerDoc("v1", new OpenApiInfo { Title = "Cleanio API", Version = "v1" });
+				c.SwaggerDoc("v1", new OpenApiInfo { Title = "Cleario API", Version = "v1" });
 			});
 		}
 
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
+			app.UseMiddleware<ExceptionMiddleware>();
+
 			if (env.IsDevelopment())
 			{
 				app.UseSwagger();

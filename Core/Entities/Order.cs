@@ -3,6 +3,8 @@
 	public class Order
 	{
 		public int OrderId { get; set; }
+		public Customer Customer { get; set; }
+		public int CustomerId { get; set; }
 		public string CustomerName { get; set; }
 		public string CustomerNumber { get; set; }
 		public string CustomerEmail { get; set; }
